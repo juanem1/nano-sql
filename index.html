@@ -2,16 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>electron-vue</title>
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+    <style>
+      .container {
+        max-width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <div id="app">
-      <div>
-        <router-link to="/foo">Go to Foo</router-link> |
-        <router-link to="/bar">Go to Bar</router-link>
+    <div class="container">
+      <div id="app">
+        <router-view></router-view>
       </div>
-      <router-view></router-view>
     </div>
-    <script>require('./dist/build.js')</script>
+    <!--script src="./dist/build.js">require('./dist/build.js')</script-->
+    <script src="./dist/build.js"></script>
   </body>
 </html>

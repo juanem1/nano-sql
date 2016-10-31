@@ -2,13 +2,12 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from './App.vue';
-
-const Bar = { template: '<div>bar</div>' };
+import Connect from './Connect.vue';
+import Dashboard from './Dashboard.vue';
 
 const routes = [
-  { path: '/foo', component: App },
-  { path: '/bar', component: Bar }
+  { path: '/', component: Connect },
+  { path: '/dashboard', component: Dashboard }
 ];
 
 Vue.use(VueRouter);
