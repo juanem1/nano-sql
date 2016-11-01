@@ -1,6 +1,9 @@
 <template>
   <div class="connect-comp">
     <div class="connect-comp-container">
+      <div v-show="notification" class="notification is-danger">
+        Unable to connect to host because access was denied.
+      </div>
       <form class="box" v-on:submit.prevent="connectOnSubmit">
         <label class="label">Host:</label>
         <p class="control">
@@ -23,7 +26,7 @@
           <input class="input" type="text" placeholder="Port" v-model="form.port" />
         </p>
         <p class="control">
-          <button type="submit" class="button is-primary">Connect</button>
+          <button v-bind:class="{ 'is-loading': btnIsLoading }" type="submit" class="button is-primary ">Connect</button>
         </p>
       </form>
     </div>
@@ -31,17 +34,34 @@
 </template>
 
 <script>
+const DB = require('./DB');
 export default {
   name: 'connect',
   data () {
     return {
-      form: {}
+      btnIsLoading: false,
+      notification: false,
+      form: {
+        host: '192.168.10.10',
+        user: 'homestead',
+        password: 'secret',
+        database: 'nninmobiliaria',
+        port: 3306
+      }
     }
   },
 
   methods: {
     connectOnSubmit () {
-      console.log(this.$router.push('dashboard'))
+      this.btnIsLoading = true;
+      DB.connect(this.form).then(() => {
+        console.log('connected');
+        this.$router.push('dashboard');
+      }).catch((error) => {
+        this.notification = true;
+      }).then(() => {
+        this.btnIsLoading = false;
+      });
     }
   }
 }
@@ -55,6 +75,7 @@ export default {
   .connect-comp-container {
     align-items: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 100%;
   }

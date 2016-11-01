@@ -12,29 +12,36 @@
     </nav>  
     <div class="columns">
       <div class="column is-2">
-        tables
+        <pre>
+          {{tables}}
+        </pre>
       </div>
       <div class="column is-10">
-        content
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+var Tables = require('./Tables');
+var tables = new Tables();
 export default {
   name: 'dashboard',
   data () {
     return {
-      form: {}
+      tables: {}
     }
+  },  
+
+  mounted () {
+    tables.getTables().then((resp) => {
+      this.tables = resp;
+    });
   },
 
   methods: {
-    connectOnSubmit () {
-      console.log(this.form);
-      console.log(this);
-    }
+    
   }
 }
 </script>

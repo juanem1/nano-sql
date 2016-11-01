@@ -40,6 +40,9 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
+  plugins: [
+    new webpack.ExternalsPlugin('commonjs', ['mysql'])
+  ],
   devtool: '#eval-source-map'
 }
 
