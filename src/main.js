@@ -2,12 +2,27 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Connect from './Connect.vue';
-import Dashboard from './Dashboard.vue';
+import Connect from './components/Connect.vue';
+import Tables from './components/Tables.vue';
+import TableStructure from './components/TableStructure.vue';
+import TableContent from './components/TableContent.vue';
+import TableInfo from './components/TableInfo.vue';
 
 const routes = [
-  { path: '/', component: Connect },
-  { path: '/dashboard', component: Dashboard }
+  { 
+    path: '/', 
+    name: 'home', 
+    component: Connect 
+  }, { 
+    path: '/tables', 
+    name: 'tables', 
+    component: Tables,
+    children: [
+      { path: ':name/structure', name: 'tableStructure', component: TableStructure },
+      { path: ':name/content', name: 'tableContent', component: TableContent },
+      { path: ':name/info', name: 'tableInfo', component: TableInfo }
+    ] 
+  }
 ];
 
 Vue.use(VueRouter);

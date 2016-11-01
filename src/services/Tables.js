@@ -12,14 +12,15 @@ class Tables {
         if (err) {
           reject(err);
         } else {
-          resolve(JSON.stringify(response));
+          resolve(response);
         }
       });
     });
   }
 
   getTables() {
-    let qs = 'SHOW TABLES';
+    let dbName = this.DB.config.database;
+    let qs = `SELECT TABLE_NAME as 'name' FROM information_schema.TABLES t WHERE TABLE_SCHEMA = '${dbName}'`;
     return this.getQuery(qs);
   }
 

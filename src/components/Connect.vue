@@ -34,7 +34,7 @@
 </template>
 
 <script>
-const DB = require('./DB');
+const DB = require('../services/DB');
 export default {
   name: 'connect',
   data () {
@@ -55,8 +55,7 @@ export default {
     connectOnSubmit () {
       this.btnIsLoading = true;
       DB.connect(this.form).then(() => {
-        console.log('connected');
-        this.$router.push('dashboard');
+        this.$router.push('tables');
       }).catch((error) => {
         this.notification = true;
       }).then(() => {
