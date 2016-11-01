@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="columns">
+    <div class="columns is-gapless">
       <div class="column is-2">
         <aside class="menu">
           <p class="menu-label">Tables</p>
@@ -45,5 +45,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .columns {
+    min-height: 100vh;
+  }
+  .column.is-2 {
+    border-right: 2px solid rgba(0,0,0,0.20);
+    padding: 10px;
+  }
 </style>
