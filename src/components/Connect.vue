@@ -26,7 +26,12 @@
           <input class="input" type="text" placeholder="Port" v-model="form.port" />
         </p>
         <p class="control">
-          <button v-bind:class="{ 'is-loading': btnIsLoading }" type="submit" class="button is-primary ">Connect</button>
+          <button v-bind:class="{ 'is-loading': btnIsLoading }" type="submit" class="button is-primary">
+            <span class="icon">
+              <i class="fa fa-plug" aria-hidden="true"></i>
+            </span>
+            <span>Connect</span>
+          </button>
         </p>
       </form>
     </div>

@@ -1,16 +1,18 @@
 <template>
-    <nav class="nav has-shadow">
+    <nav class="nav">
       <div class="container">
-        <div class="nav-right">
-          <router-link class="nav-item is-tab" :to="{ name: 'tableStructure', params: { name: tableName }}" active-class="is-active">
-            Structure
-          </router-link>
-          <router-link class="nav-item is-tab" :to="{ name: 'tableContent', params: { name: tableName }}" active-class="is-active">
-            Content
-          </router-link>
-          <router-link class="nav-item is-tab" :to="{ name: 'tableInfo', params: { name: tableName }}" active-class="is-active">
-            Table Info
-          </router-link>
+        <div class="nav-right nav-menu">
+          <span class="nav-item is-tab">
+            <router-link class="button" :to="{ name: 'tableStructure', params: { name: tableName }}" active-class="is-active">
+              <span>Structure</span>
+            </router-link>
+            <router-link class="button" :to="{ name: 'tableContent', params: { name: tableName }}" active-class="is-active">
+              <span>Content</span>
+            </router-link>
+            <router-link class="button" :to="{ name: 'tableInfo', params: { name: tableName }}" active-class="is-active">
+              <span>Table Info</span>
+            </router-link>
+          </span>
         </div>
       </div>
     </nav>
@@ -22,3 +24,9 @@
     props: ['tableName']
   }
 </script>
+
+<style scoped>
+  .nav {
+    border-bottom: 2px solid rgba(0,0,0,0.20);
+  }
+</style>
