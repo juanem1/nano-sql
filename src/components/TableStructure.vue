@@ -38,7 +38,6 @@
   import TableNav from './partials/TableNav.vue';
   const DB = require('../services/DbService');
   export default {
-
     name: 'tableStructure',
     data () {
       return {
