@@ -7,6 +7,9 @@
           <ul class="menu-list">
             <li v-for="table in tables">
               <router-link :to="{ name: 'tableStructure', params: { name: table.name }}" active-class="is-active">
+                <span class="icon">
+                  <i class="fa fa-table" aria-hidden="true"></i>
+                </span>
                 {{ table.name }}
               </router-link>
             </li>
@@ -24,7 +27,7 @@
 var Tables = require('../services/Tables');
 var tables = new Tables();
 export default {
-  name: 'dashboard',
+  name: 'tables',
   data () {
     return {
       tables: []

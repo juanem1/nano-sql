@@ -8,7 +8,7 @@ class Tables {
 
   getQuery(qs) {
     return new Promise((resolve, reject) => {
-      this.DB.connection.query(qs, (err, response, fields) => {
+      this.DB.connection.query(qs, (err, response) => {
         if (err) {
           reject(err);
         } else {
@@ -26,12 +26,13 @@ class Tables {
 
   getTableInfo(tableName) {
     let dbName = this.DB.config.database;
-    let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND table_name = '${tableName}'`;
+    let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   }
 
   getTableStructure(tableName) {
-    let qs = `DESCRIBE ${tableName}`;
+    let dbName = this.DB.config.database;
+    let qs = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   }
 

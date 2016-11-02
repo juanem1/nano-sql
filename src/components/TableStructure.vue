@@ -4,26 +4,30 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Instrument</th>
-          <th></th>
-          <th></th>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Length</th>
+          <th>Unsigned</th>
+          <th>Allow Null</th>
+          <th>Key</th>
+          <th>Default</th>
+          <th>Extra</th>
+          <th>Collation</th>
+          <th>Comments</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Misty Abbott</td>
-          <td>Bass Guitar</td>
-          <td class="is-icon">
-            <a href="#">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </td>
-          <td class="is-icon">
-            <a href="#">
-              <i class="fa fa-instagram"></i>
-            </a>
-          </td>
+        <tr v-for="row in structure">
+          <td>{{row.COLUMN_NAME}}</td>
+          <td>{{row.DATA_TYPE}}</td>
+          <td>{{ getRowLength(row) }}</td>
+          <td>{{ getUnsigned(row) }}</td>
+          <td>{{row.IS_NULLABLE}}</td>
+          <td>{{row.COLUMN_KEY}}</td>
+          <td>{{row.COLUMN_DEFAULT}}</td>
+          <td>{{row.EXTRA}}</td>
+          <td>{{row.COLLATION_NAME}}</td>
+          <td>{{row.COLUMN_COMMENT}}</td>
         </tr>
       </tbody>
     </table>
@@ -45,16 +49,32 @@
     components: {
       TableNav
     },
+    watch: {
+      '$route' (to, from) {
+        this.getStructure(to.params.name);
+      }
+    },
     methods: {
-      getStructure () {
-        tables.getTableStructure(this.$route.params.name).then((resp) => {
+      getStructure (tableName) {
+        tables.getTableStructure(tableName).then((resp) => {
           this.structure = resp;
-          console.log(resp);
         });
+      },
+      getRowLength(row) {
+        switch(row.DATA_TYPE) {
+          case 'int':
+            return row.NUMERIC_PRECISION;
+          case 'varchar':
+            return row.CHARACTER_MAXIMUM_LENGTH;
+        }
+      },
+      getUnsigned(row) {
+        return row.COLUMN_TYPE.slice(-8) === 'unsigned' ?
+          'YES' : 'NO';
       }
     },
     created() {
-      this.getStructure();
+      this.getStructure(this.$route.params.name);
     }
   }
 </script>
