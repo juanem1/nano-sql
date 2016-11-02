@@ -1,6 +1,5 @@
 <template>
   <div>
-    <TableNav v-bind:table-name="$route.params.name"></TableNav>
     <table class="table">
       <thead>
         <tr>
@@ -35,7 +34,6 @@
 </template>
 
 <script>
-  import TableNav from './partials/TableNav.vue';
   const DB = require('../services/DbService');
   export default {
     name: 'tableStructure',
@@ -43,9 +41,6 @@
       return {
         structure: {}
       }
-    },
-    components: {
-      TableNav
     },
     watch: {
       '$route' (to, from) {

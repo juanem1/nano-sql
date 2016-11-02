@@ -28,5 +28,9 @@
 <style scoped>
   .nav {
     border-bottom: 2px solid rgba(0,0,0,0.20);
+    left: 210px;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 </style>
