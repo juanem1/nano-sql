@@ -60,8 +60,7 @@
 
 <script>
   import TableNav from './partials/TableNav.vue';
-  const Tables = require('../services/Tables');
-  const tables = new Tables();
+  const DB = require('../services/DbService');
   export default {
     name: 'tableInfo',
     data () {
@@ -74,7 +73,7 @@
     },
     methods: {
       getInfo () {
-        tables.getTableInfo(this.$route.params.name).then((resp) => {
+        DB.getTableInfo(this.$route.params.name).then((resp) => {
           this.info = resp[0];
         });
       }

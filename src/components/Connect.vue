@@ -34,7 +34,7 @@
 </template>
 
 <script>
-const DB = require('../services/DB');
+const DB = require('../services/DbService');
 export default {
   name: 'connect',
   data () {

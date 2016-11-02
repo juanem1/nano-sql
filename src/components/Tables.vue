@@ -24,8 +24,7 @@
 </template>
 
 <script>
-var Tables = require('../services/Tables');
-var tables = new Tables();
+var DB = require('../services/DbService');
 export default {
   name: 'tables',
   data () {
@@ -36,7 +35,7 @@ export default {
 
   methods: {
     getTables () {
-      tables.getTables().then((resp) => {
+      DB.getTables().then((resp) => {
         this.tables = resp;
       });
     }

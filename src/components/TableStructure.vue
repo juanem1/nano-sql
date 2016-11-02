@@ -36,8 +36,7 @@
 
 <script>
   import TableNav from './partials/TableNav.vue';
-  const Tables = require('../services/Tables');
-  const tables = new Tables();
+  const DB = require('../services/DbService');
   export default {
 
     name: 'tableStructure',
@@ -56,7 +55,7 @@
     },
     methods: {
       getStructure (tableName) {
-        tables.getTableStructure(tableName).then((resp) => {
+        DB.getTableStructure(tableName).then((resp) => {
           this.structure = resp;
         });
       },
