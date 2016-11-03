@@ -41,6 +41,9 @@ export default {
     getTables () {
       DB.getTables().then((resp) => {
         this.tables = resp;
+        if (resp.length > 0) {
+          this.$router.push(`tables/${resp[0].name}/structure`);
+        }
       });
     }
   },
