@@ -92,8 +92,8 @@ export default {
     top: 54px;
     width: 210px;
   }
-  .left-column select {
-    width: 100%;
+  .left-column .menu {
+    margin-bottom: 60px;
   }
   .left-column li {
     white-space: nowrap;

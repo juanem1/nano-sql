@@ -1,6 +1,7 @@
 'use strict';
 
 var mysql = require('mysql');
+var PS = require('./PaginationService');
 
 module.exports = {
   // keep the stablished conneciton
@@ -102,11 +103,17 @@ module.exports = {
   /** 
    * Get content (data) from some table
    * @param {String} tableName Name of the table 
+   * @param {Number} page      Page to show (pagination) 
    * @return Promise
    */
-  getTableContent: function(tableName) {
+  getTableContent: function(tableName, page) {
     let dbName = this.config.database;
-    let qs = `SELECT * FROM ${dbName}.${tableName} LIMIT 10`;
+    let limit = PS.maxRowsPerPage;
+    let ofset = 0;
+    if (page > 1) {
+      ofset = limit * (page -1);
+    }
+    let qs = `SELECT * FROM ${dbName}.${tableName} LIMIT ${ofset}, ${limit}`;
     return this.getQuery(qs);
   },
 
@@ -118,6 +125,18 @@ module.exports = {
   getTableIndex: function(tableName) {
     let dbName = this.config.database;
     let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`;
+    return this.getQuery(qs);
+  },
+
+  /** 
+   * Get total rows of one table
+   * @param {String} tableName Name of the table 
+   * @return Promise
+   */
+  getTotalRows: function(tableName) {
+    let dbName = this.config.database;
+    let qs = `SELECT SUM(TABLE_ROWS) AS rows FROM INFORMATION_SCHEMA.TABLES WHERE `;
+    qs += `TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   }
 
