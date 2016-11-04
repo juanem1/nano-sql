@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table">
+    <table class="table is-striped is-narrow">
       <thead>
         <tr>
           <th>Field</th>
@@ -73,4 +73,7 @@
 </script>
 
 <style>
+  .table td {
+    vertical-align: middle;
+  }
 </style>
