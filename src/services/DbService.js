@@ -105,7 +105,8 @@ module.exports = {
    * @return Promise
    */
   getTableContent: function(tableName) {
-    let qs = `SELECT * FROM ${tableName} LIMIT 10`;
+    let dbName = this.config.database;
+    let qs = `SELECT * FROM ${dbName}.${tableName} LIMIT 10`;
     return this.getQuery(qs);
   },
 
@@ -115,7 +116,8 @@ module.exports = {
    * @return Promise
    */
   getTableIndex: function(tableName) {
-    let qs = `SHOW INDEXES FROM ${tableName}`;
+    let dbName = this.config.database;
+    let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`;
     return this.getQuery(qs);
   }
 
