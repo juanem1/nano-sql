@@ -60,7 +60,7 @@ export default {
     connectOnSubmit () {
       this.btnIsLoading = true;
       DB.connect(this.form).then(() => {
-        this.$router.push('tables');
+        this.$router.push('/tables');
       }).catch((error) => {
         this.notification = true;
       }).then(() => {

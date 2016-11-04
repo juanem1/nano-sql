@@ -10,6 +10,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({width: 1200, height: 600});
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   mainWindow.webContents.openDevTools();
+  BrowserWindow.addDevToolsExtension('/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.1.2_0');
   mainWindow.on('closed', function () {
     mainWindow = null;
   });

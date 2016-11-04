@@ -60,6 +60,14 @@ module.exports = {
   },
 
   /** 
+   * Get all databases with the current DB connection
+   * @return Promise
+   */
+  getDatabases: function() {
+    return this.getQuery('show databases');
+  },
+
+  /** 
    * Get all tables from the current DB connected
    * @return Promise
    */
