@@ -1,6 +1,15 @@
 <template>
-    <nav class="nav">
+    <nav class="nav has-shadow">
       <div class="container">
+        <div class="nav-left nav-menu">
+          <div class="nav-item is-tab">
+            <span class="select">
+              <select v-model="selected" v-on:change="changeDbSelection">
+                <option v-for="database in databases">{{database.Database}}</option>
+              </select>
+            </span>
+          </div>
+        </div>
         <div class="nav-right nav-menu">
           <span class="nav-item is-tab">
             <router-link class="button" :to="{ name: 'tableStructure', params: { name: tableName }}" active-class="is-active">
@@ -21,14 +30,27 @@
 <script>
   export default {
     name: 'tableNav',
-    props: ['tableName']
+    props: [
+      'tableName',
+      'selectedDb',
+      'databases'
+    ],
+    computed: {
+      selected () {
+        return this.selectedDb;
+      }
+    },
+    methods: {
+      changeDbSelection(event) {
+        this.$emit('databaseChange', event.target.value);
+      }
+    }
   }
 </script>
 
 <style scoped>
   .nav {
-    border-bottom: 2px solid rgba(0,0,0,0.20);
-    left: 210px;
+    left: 0;
     position: fixed;
     right: 0;
     top: 0;

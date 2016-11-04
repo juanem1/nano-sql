@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <div class="columns is-gapless">
+      <TableNav 
+        v-if="$route.params.name"
+        v-on:databaseChange="databaseChange"
+        v-bind:table-name="$route.params.name"
+        v-bind:selected-db="selectedDatabase"
+        v-bind:databases="databases">
+      </TableNav>
       <div class="left-column">
-        <div class="control">
-          <span class="select">
-            <select v-model="selectedDatabase">
-              <option v-for="database in databases">{{database.Database}}</option>
-            </select>
-          </span>
-        </div>
         <aside class="menu">
           <p class="menu-label">Tables</p>
           <ul class="menu-list">
@@ -23,7 +23,6 @@
           </ul>
         </aside>
       </div>
-      <TableNav v-if="$route.params.name" v-bind:table-name="$route.params.name"></TableNav>
       <div class="right-column">
         <router-view></router-view>
       </div>
@@ -46,13 +45,13 @@ export default {
   components: {
     TableNav
   },
-  watch: {
-    selectedDatabase: function(newSelection) {
-      DB.config.database = newSelection; 
-      this.loadTables();
-    }
-  },
   methods: {
+    // Event trigger from child
+    databaseChange(newDbName) {
+      DB.config.database = newDbName; 
+      this.selectedDatabase = newDbName; 
+      this.loadTables();
+    },
     loadDatabases () {
       DB.getDatabases().then((resp) => {
         if (resp.length > 0) {
@@ -90,6 +89,7 @@ export default {
     overflow: auto;
     padding: 10px;
     position: fixed;
+    top: 54px;
     width: 210px;
   }
   .left-column select {
