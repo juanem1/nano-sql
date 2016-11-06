@@ -12,13 +12,13 @@
         </div>
         <div class="nav-right nav-menu">
           <span class="nav-item is-tab">
-            <router-link class="button" :to="{ name: 'tableStructure', params: { name: tableName }}" active-class="is-active">
+            <router-link class="button" :to="{ name: 'tableStructure', params: { name: tableName }}" active-class="is-primary">
               <span>Structure</span>
             </router-link>
-            <router-link class="button" :to="{ name: 'tableContent', params: { name: tableName }}" active-class="is-active">
+            <router-link class="button" :to="{ name: 'tableContent', params: { name: tableName }}" active-class="is-primary">
               <span>Content</span>
             </router-link>
-            <router-link class="button" :to="{ name: 'tableInfo', params: { name: tableName }}" active-class="is-active">
+            <router-link class="button" :to="{ name: 'tableInfo', params: { name: tableName }}" active-class="is-primary">
               <span>Table Info</span>
             </router-link>
           </span>

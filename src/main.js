@@ -27,7 +27,10 @@ const routes = [
 
 Vue.use(VueRouter);
 const router = new VueRouter({
-  routes // short for routes: routes
+  routes: routes,
+  scrollBehavior (to, from, savedPosition) {
+    return savedPosition ? savedPosition : { x: 0, y: 0 };
+  }
 });
 
 const app = new Vue({

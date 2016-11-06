@@ -5,19 +5,6 @@ module.exports = {
   maxRowsPerPage: 100,
 
   /** 
-   * Generate label to show count of rows
-   * @param {Integer} totalRows Total rows in some table 
-   * @return String
-   */
-  rowsLabel: function(totalRows) {
-    if (totalRows <= this.maxRowsPerPage) {
-      return `${totalRows} rows in table`;
-    } else {
-      return `Rows 1 - ${this.maxRowsPerPage} of ${totalRows}`;
-    }
-  },
-
-  /** 
    * Determine if I need to show controls or not
    * @param {Integer} totalRows Total rows in some table 
    * @return Bolean
