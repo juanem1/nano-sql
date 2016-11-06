@@ -1,31 +1,14 @@
 'use strict';
 
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const App = require('./src/bootstrap/app');
 
-let mainWindow;
+const electronApp = electron.app;
 
-function createWindow() {
-  mainWindow = new BrowserWindow({width: 1200, height: 600});
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
-  mainWindow.webContents.openDevTools();
-  BrowserWindow.addDevToolsExtension('/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.1.2_0');
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
-}
+App.electronApp   = electronApp;
+App.menu          = electron.Menu;
+App.browserWindow = electron.BrowserWindow;
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
+electronApp.on('ready', () => App.onReady());
+electronApp.on('activate', () => App.onActivate());
+electronApp.on('window-all-closed', () => App.onWindowAllClosed());
