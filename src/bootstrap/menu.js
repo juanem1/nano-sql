@@ -21,11 +21,11 @@ const menu = [
     ]
   }, {
     label: 'Database',
+    sublabel: 'database', // don't change. Used to find this item
     submenu: [
       {
         label: 'Add Database',
-        enabled: false,
-        click() { require('electron').shell.openExternal('http://electron.atom.io') }
+        enabled: false
       }
     ]
   }

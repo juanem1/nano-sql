@@ -6,7 +6,6 @@ const App = require('./src/bootstrap/app');
 const electronApp = electron.app;
 
 App.electronApp   = electronApp;
-App.menu          = electron.Menu;
 App.browserWindow = electron.BrowserWindow;
 
 electronApp.on('ready', () => App.onReady());

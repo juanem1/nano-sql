@@ -2,10 +2,20 @@
   <div class="ns-container">
     <div class="ns-wrapper content">
       <h2>No tables in this database.</h2>
-      <button class="button is-primary">Add table now</button>
+      <button v-on:click="addDatabase" class="button is-primary">Add table now</button>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'notSetTables',
+    methods: {
+      addDatabase() {
+      }
+    }
+  }
+</script>
 
 <style scoped>
   .ns-container {

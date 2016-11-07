@@ -1,7 +1,8 @@
 'use strict';
 
-const templateMenu = require('./menu');
-const devMenu = require('./dev-menu');
+const ipcService = require('../services/IpcService');
+const menuService = require('../services/MenuService');
+const DevToolsService = require('../services/DevToolsService');
 
 let App = {
   
@@ -23,24 +24,13 @@ let App = {
   // Config of main window
   mainWindowConfig: {width: 1200, height: 600, titleBarStyle: 'hidden'},
 
-  setDevMenu() {
-    this.mainWindow.webContents.openDevTools();
-    this.browserWindow.addDevToolsExtension('/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.1.2_0');
-  },
-
-  createMenu() {
-    if (this.isDev) {
-      templateMenu.push(devMenu);
-    }
-    this.menu.setApplicationMenu(
-      this.menu.buildFromTemplate(templateMenu)
-    );
-  },
-
   createWindow() {
     this.mainWindow = new this.browserWindow(this.mainWindowConfig);
     this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
     this.mainWindow.maximize();
+
+    menuService.make(this.isDev);
+
     this.mainWindow.on('closed', function () {
       this.mainWindow = null;
     });
@@ -48,8 +38,10 @@ let App = {
 
   // Bootstrap application
   init() {
-    this.createMenu();
     this.createWindow();
+    ipcService.init();
+    // If I'm in dev mode open console and load vue extension
+    DevToolsService.init(this.mainWindow, this.browserWindow, this.isDev);
   },
 
   // Handle Electron Events

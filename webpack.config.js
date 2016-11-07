@@ -41,7 +41,10 @@ module.exports = {
     noInfo: true
   },
   plugins: [
-    new webpack.ExternalsPlugin('commonjs', ['mysql'])
+    new webpack.ExternalsPlugin('commonjs', [
+      'electron',
+      'mysql'
+    ])
   ],
   devtool: '#eval-source-map'
 }
