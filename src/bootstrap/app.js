@@ -16,7 +16,7 @@ let App = {
   // App Main Window
   mainWindow: null,
 
-  mainWindowConfig: {width: 1200, height: 600},
+  mainWindowConfig: {width: 1200, height: 600, titleBarStyle: 'hidden'},
 
   createMenu() {
     this.menu.setApplicationMenu(
@@ -27,6 +27,7 @@ let App = {
   createWindow() {
     this.mainWindow = new this.browserWindow(this.mainWindowConfig);
     this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
+    this.mainWindow.maximize();
     //this.mainWindow.webContents.openDevTools();
     //BrowserWindow.addDevToolsExtension('/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.1.2_0');
     this.mainWindow.on('closed', function () {
