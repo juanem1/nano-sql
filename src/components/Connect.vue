@@ -19,7 +19,7 @@
         </p>
         <label for="" class="label">Database:</label>
         <p class="control">
-          <input class="input" type="text" placeholder="Database" v-model="form.database" />
+          <input class="input" type="text" placeholder="Optional" v-model="form.database" />
         </p>
         <label for="" class="label">Port:</label>
         <p class="control">
@@ -50,7 +50,6 @@ export default {
         host: '192.168.10.10',
         user: 'homestead',
         password: 'secret',
-        database: 'nninmobiliaria',
         port: 3306
       }
     }
