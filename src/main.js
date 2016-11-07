@@ -3,10 +3,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Connect from './components/Connect.vue';
-import Tables from './components/Tables.vue';
-import TableStructure from './components/TableStructure.vue';
-import TableContent from './components/TableContent.vue';
-import TableInfo from './components/TableInfo.vue';
+import Layout from './components/Layout.vue';
+import TableStructure from './components/tables/Structure.vue';
+import TableContent from './components/tables/Content.vue';
+import TableInfo from './components/tables/Info.vue';
 
 const routes = [
   { 
@@ -16,7 +16,7 @@ const routes = [
   }, { 
     path: '/tables', 
     name: 'tables', 
-    component: Tables,
+    component: Layout,
     children: [
       { path: ':name/structure', name: 'tableStructure', component: TableStructure },
       { path: ':name/content', name: 'tableContent', component: TableContent },

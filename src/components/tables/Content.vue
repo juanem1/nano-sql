@@ -40,9 +40,9 @@
 </template>
 
 <script>
-  const DB = require('../services/DbService');
-  const PS = require('../services/PaginationService');
-  import formatNumber from '../filters/FormatNumber';
+  const DB = require('../../services/DbService');
+  const PS = require('../../services/PaginationService');
+  import formatNumber from '../../filters/FormatNumber';
   export default {
     name: 'tableContent',
     data () {

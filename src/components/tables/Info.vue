@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  const DB = require('../services/DbService');
+  const DB = require('../../services/DbService');
   export default {
     name: 'tableInfo',
     data () {
