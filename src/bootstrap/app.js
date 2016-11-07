@@ -4,14 +4,11 @@ const ipcService = require('../services/IpcService');
 const menuService = require('../services/MenuService');
 const DevToolsService = require('../services/DevToolsService');
 
-let App = {
+module.exports = {
   
   // Electron App
   electronApp: null,
   
-  // Electron Menu  
-  menu: null,
-
   // Electron Browser Window
   browserWindow: null,
 
@@ -63,5 +60,3 @@ let App = {
   }
 
 };
-
-module.exports = App;
