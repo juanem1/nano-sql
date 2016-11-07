@@ -9,19 +9,8 @@
           :databases="databases"
           >
         </DbSelection>
-        <aside class="menu" v-show="tables.length">
-          <p class="menu-label">Tables</p>
-          <ul class="menu-list">
-            <li v-for="table in tables" :title="table.name">
-              <router-link :to="{ name: 'tableStructure', params: { name: table.name }}" active-class="is-active">
-                <span class="icon">
-                  <i class="fa fa-table" aria-hidden="true"></i>
-                </span>
-                {{ table.name }}
-              </router-link>
-            </li>
-          </ul>
-        </aside>
+        <TableList :tables="tables" v-show="selectedDatabase"></TableList>
+        <NoDbSelected v-show="!selectedDatabase"></NoDbSelected>
       </div>
       <div class="right-column">
         <router-view></router-view>
@@ -33,6 +22,8 @@
 <script>
   import TableNav from './partials/TableNav.vue';
   import DbSelection from './partials/DbSelection.vue';
+  import TableList from './partials/TableList.vue';
+  import NoDbSelected from './partials/NoDbSelected.vue';
 
   var DB = require('../services/DbService');
 
@@ -47,7 +38,9 @@
     },  
     components: {
       TableNav,
-      DbSelection
+      DbSelection,
+      TableList,
+      NoDbSelected
     },
     methods: {
       // Event trigger from child
@@ -64,12 +57,18 @@
         });
       },
       loadTables () {
-        DB.getTables().then((resp) => {
-          if (resp.length > 0) {
+        if (DB.config.database === '') {
+          this.tables = [];
+        } else {
+          DB.getTables().then((resp) => {
             this.tables = resp;
-            this.$router.push(`/tables/${resp[0].name}/structure`);
-          }
-        });
+            if (resp.length > 0) {
+              this.$router.push(`/tables/${resp[0].name}/structure`);
+            } else {
+              this.$router.push('/tables/not-set');
+            }
+          });
+        }
       },
       loadAll () {
         this.loadDatabases();
@@ -96,12 +95,6 @@
     position: fixed;
     top: 0;
     width: 210px;
-  }
-  .left-column .menu {
-    margin-bottom: 60px;
-  }
-  .left-column li {
-    white-space: nowrap;
   }
   .right-column {
     height: 100%;
