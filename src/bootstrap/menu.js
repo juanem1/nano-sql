@@ -25,7 +25,10 @@ const menu = [
     submenu: [
       {
         label: 'Add Database',
-        enabled: false
+        enabled: true,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('add-database');
+        }
       }
     ]
   }

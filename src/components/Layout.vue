@@ -16,6 +16,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <AddDbModal><AddDbModal>
   </div>
 </template>
 
@@ -24,8 +25,9 @@
   import DbSelection from './partials/DbSelection.vue';
   import TableList from './partials/TableList.vue';
   import NoDbSelected from './partials/NoDbSelected.vue';
+  import AddDbModal from './partials/AddDbModal.vue';
 
-  var DB = require('../services/DbService');
+  const DB = require('../services/DbService');
 
   export default {
     name: 'tables',
@@ -35,12 +37,13 @@
         tables: [],
         databases: []
       }
-    },  
+    },
     components: {
       TableNav,
       DbSelection,
       TableList,
-      NoDbSelected
+      NoDbSelected,
+      AddDbModal
     },
     methods: {
       // Event trigger from child
@@ -78,7 +81,7 @@
     created() {
       this.loadAll();
     }
-  }
+  };
 </script>
 
 <style scoped>
