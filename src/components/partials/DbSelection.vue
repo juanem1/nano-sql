@@ -2,7 +2,7 @@
   <div class="nav-item">
     <span class="select">
       <select v-model="selected" v-on:change="changeDbSelection">
-        <option v-for="database in databases">{{database.Database}}</option>
+        <option v-for="database in databases">{{database}}</option>
       </select>
     </span>
   </div>

@@ -7,14 +7,17 @@
         <button class="delete" v-on:click="closeModal"></button>
       </header>
       <section class="modal-card-body">
-        <form v-on:submit.prevent="addModal">
+        <form v-on:submit.prevent="addDatabase">
+          <div class="notification is-danger" v-if="error">
+            Invalid Database name. Only allow characters "a-z", "A-Z", "0-9", "_" and "-"
+          </div>
           <label class="label">Database Name:</label>
           <p class="control">
-            <input class="input is-expanded" type="text" placeholder="Database Name" v-model="name" />
+            <input class="input" type="text" placeholder="Database Name" v-model="name" />
           </p>
           <label class="label">Database Encoding:</label>
           <p class="control">
-            <span class="select is-disabled is-expanded">
+            <span class="select is-disabled">
               <select>
                 <option value="0">UTF-8 Unicode (utf8)</option>
               </select>
@@ -22,7 +25,7 @@
           </p>
           <label class="label">Database Collation:</label>
           <p class="control">
-            <span class="select is-disabled is-expanded">
+            <span class="select is-disabled">
               <select>
                 <option value="0">Default (utf8_general_ci)</option>
               </select>
@@ -40,26 +43,37 @@
 
 <script>
   const ipcRenderer = require('electron').ipcRenderer;
+  const DB = require('../../services/DbService');
   
   export default {
     name: 'addDbModal',
     data () {
       return {
         name: '',
+        error: false,
         isActive: false
       }
     },
     mounted() {
+      // Listen when the os menu is clicked
       ipcRenderer.on('add-database', (arg) => {
         this.isActive = true;
       });
     },
     methods: {
       addDatabase() {
-        
+        // TODO: Add validations
+        DB.createDatabase(this.name).then((resp) => {
+          this.$emit('databaseAdded', this.name);
+          this.closeModal();
+        }).catch((error) => {
+          this.error = true;
+        });
       },
       closeModal() {
+        this.name = '';
         this.isActive = false;
+        this.error = false;
       }
     }
   }

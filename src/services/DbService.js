@@ -4,10 +4,20 @@ var mysql = require('mysql');
 var PS = require('./PaginationService');
 
 module.exports = {
+
   // keep the stablished conneciton
   connection: null,
 
-  // keep the raw configuration
+  /**
+   * Keep all databases in a single array
+   * This array is populated in the first load
+   */ 
+  databases: [],
+
+  // Keep the name of the current selected database
+  selectedDatabase: '',
+
+  // keep the raw configuration for the connection
   config: {
     host     : '',
     user     : '',
@@ -15,6 +25,10 @@ module.exports = {
     database : '',
     port     : ''
   },
+
+  // Default params for databases
+  defaultEncoding: 'utf8',
+  defaultCollation: 'utf8_general_ci',
   
   /** 
    * Handle a new connection
@@ -28,6 +42,10 @@ module.exports = {
         if (error) {
           reject(error.code);
         } else {
+          // If there is a database in the connection, set it as selected
+          if (this.config.database) {
+            this.selectedDatabase = this.config.database; 
+          }
           resolve();
         }
       });
@@ -65,7 +83,17 @@ module.exports = {
    * @return Promise
    */
   getDatabases: function() {
-    return this.getQuery('show databases');
+    return new Promise((resolve, reject) => {
+      this.getQuery('show databases')
+        .then((response) => {
+          let dbs = [];
+          if (response.length) {
+            response.forEach(item => dbs.push(item.Database));
+          }
+          resolve(dbs);
+        })
+        .catch(error => reject(error));
+    });
   },
 
   /** 
@@ -73,7 +101,7 @@ module.exports = {
    * @return Promise
    */
   getTables: function() {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let qs = `SELECT TABLE_NAME as 'name' FROM information_schema.TABLES t WHERE TABLE_SCHEMA = '${dbName}'`;
     return this.getQuery(qs);
   },
@@ -84,7 +112,7 @@ module.exports = {
    * @return Promise
    */
   getTableInfo: function(tableName) {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   },
@@ -95,7 +123,7 @@ module.exports = {
    * @return Promise
    */
   getTableStructure: function(tableName) {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let qs = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   },
@@ -107,7 +135,7 @@ module.exports = {
    * @return Promise
    */
   getTableContent: function(tableName, page) {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let limit = PS.maxRowsPerPage;
     let ofset = 0;
     if (page > 1) {
@@ -123,7 +151,7 @@ module.exports = {
    * @return Promise
    */
   getTableIndex: function(tableName) {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`;
     return this.getQuery(qs);
   },
@@ -134,9 +162,22 @@ module.exports = {
    * @return Promise
    */
   getTotalRows: function(tableName) {
-    let dbName = this.config.database;
+    let dbName = this.selectedDatabase;
     let qs = `SELECT SUM(TABLE_ROWS) AS rows FROM INFORMATION_SCHEMA.TABLES WHERE `;
     qs += `TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
+    return this.getQuery(qs);
+  },
+
+  // ---- CREATION QUERYS ------------ 
+
+  /** 
+   * Create new database with default params
+   * @param {String} dbName The name of the new database 
+   * @return Promise
+   */
+  createDatabase: function(dbName) {
+    let qs = `CREATE DATABASE ${dbName} CHARACTER SET ${this.defaultEncoding} `;
+    qs += `COLLATE ${this.defaultCollation}`;
     return this.getQuery(qs);
   }
 

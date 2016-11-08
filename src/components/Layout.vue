@@ -16,7 +16,7 @@
         <router-view></router-view>
       </div>
     </div>
-    <AddDbModal><AddDbModal>
+    <AddDbModal v-on:databaseAdded="databaseAdded"><AddDbModal>
   </div>
 </template>
 
@@ -33,9 +33,9 @@
     name: 'tables',
     data () {
       return {
-        selectedDatabase: DB.config.database,
+        selectedDatabase: '',
         tables: [],
-        databases: []
+        databases: [] 
       }
     },
     components: {
@@ -47,20 +47,23 @@
     },
     methods: {
       // Event trigger from child
-      databaseChange(newDbName) {
-        DB.config.database = newDbName; 
-        this.selectedDatabase = newDbName; 
+      databaseChange(selectedDb) {
+        this.selectedDatabase = selectedDb; 
+        this.loadTables();
+      },
+      // Event trigger from child
+      databaseAdded(dbName) {
+        this.databases.push(dbName);
+        this.selectedDatabase = dbName;
         this.loadTables();
       },
       loadDatabases () {
         DB.getDatabases().then((resp) => {
-          if (resp.length > 0) {
-            this.databases = resp;
-          }
+          this.databases = resp;
         });
       },
       loadTables () {
-        if (DB.config.database === '') {
+        if (this.selectedDatabase === '') {
           this.tables = [];
         } else {
           DB.getTables().then((resp) => {

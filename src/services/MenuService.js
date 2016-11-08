@@ -5,8 +5,6 @@ const menu = require('electron').Menu;
 const mainMenu = require('../bootstrap/menu');
 const devMenu = require('../bootstrap/dev-menu');
 
-const appMenu = menu.getApplicationMenu();
-
 module.exports = {
 
   /**
@@ -27,6 +25,7 @@ module.exports = {
    * @param {String} item 
    */
   enableItem(item) {
+    const appMenu = menu.getApplicationMenu();
     switch(item) {
       case 'add-database':
         let obj = _.find(appMenu.items, ['sublabel', 'database']);

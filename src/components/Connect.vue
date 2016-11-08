@@ -40,6 +40,8 @@
 
 <script>
 const DB = require('../services/DbService');
+const ipcRenderer = require('electron').ipcRenderer;
+
 export default {
   name: 'connect',
   data () {
@@ -60,6 +62,7 @@ export default {
       this.btnIsLoading = true;
       DB.connect(this.form).then(() => {
         this.$router.push('/tables');
+        ipcRenderer.send('enable-menu-item', 'add-database');
       }).catch((error) => {
         this.notification = true;
       }).then(() => {
