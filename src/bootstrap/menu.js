@@ -1,4 +1,8 @@
-const menu = [
+'use strict';
+
+const shell = require('electron').shell;
+
+let menu = [
   {
     label: 'Main',
     submenu: [
@@ -41,7 +45,47 @@ const menu = [
         }
       }
     ]
+  }, {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Report an Issue...',
+        click () { 
+          shell.openExternal('https://github.com/juanem1/nano-sql/issues') 
+        }
+      }, {
+        label: 'Documentation',
+        click () { 
+          shell.openExternal('https://juanem1.gitbooks.io/nano-sql/content') 
+        }
+      }, {
+        label: 'Github',
+        click () { 
+          shell.openExternal('https://github.com/juanem1/nano-sql') 
+        }
+      }
+    ]
   }
 ];
+
+if (process.platform === 'darwin') {
+  menu.unshift({
+    label: 'Nano SQL',
+    submenu: [
+      { role: 'about' }, 
+      { type: 'separator' }, 
+      { 
+        role: 'services',
+        submenu: []
+      }, 
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  });
+}
 
 module.exports = menu;
