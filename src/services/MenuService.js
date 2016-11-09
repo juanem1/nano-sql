@@ -24,12 +24,38 @@ module.exports = {
    * Enable one item from the top menu
    * @param {String} item 
    */
-  enableItem(item) {
+  enableItem (item) {
     const appMenu = menu.getApplicationMenu();
+    let obj = {};
     switch(item) {
       case 'add-database':
-        let obj = _.find(appMenu.items, ['sublabel', 'database']);
+        obj = _.find(appMenu.items, ['label', 'Database']);
         obj.submenu.items[0].enabled = true;
+        break;
+      case 'disconnect':
+        debugger;
+        obj = _.find(appMenu.items, ['label', 'File']);
+        obj.submenu.items[0].enabled = true;
+        break;
+    }
+  },
+
+  /**
+   * Enable one item from the top menu
+   * @param {String} item 
+   */
+  disableItem (item) {
+    const appMenu = menu.getApplicationMenu();
+    let obj = {};
+    switch(item) {
+      case 'add-database':
+        obj = _.find(appMenu.items, ['label', 'Database']);
+        obj.submenu.items[0].enabled = false;
+        break;
+      case 'disconnect':
+        debugger;
+        obj = _.find(appMenu.items, ['label', 'File']);
+        obj.submenu.items[0].enabled = false;
         break;
     }
   }

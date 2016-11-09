@@ -56,7 +56,9 @@ module.exports = {
    * Finish current connection 
    */
   disconnect () {
-    //this.connection.end();
+    this.connection.end();
+    let reset = {host:'', user:'', password:'', database:'', port:''};
+    this.config = Object.assign(this.config, reset);
   },
 
   /* QUERY DATABASE **************************/

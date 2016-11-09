@@ -6,7 +6,18 @@ const menu = [
       { type: 'separator' },
       { role: 'quit' }
     ]
-  },{
+  }, {
+    label: 'File',
+    submenu: [
+      { 
+        label: 'Disconnect',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('disconnect');
+        }
+      }
+    ]
+  }, {
     label: 'Edit',
     submenu: [
       { role: 'undo' },
@@ -21,7 +32,6 @@ const menu = [
     ]
   }, {
     label: 'Database',
-    sublabel: 'database', // don't change. Used to find this item
     submenu: [
       {
         label: 'Add Database',

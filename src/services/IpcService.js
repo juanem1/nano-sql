@@ -11,14 +11,21 @@ ipcRenderer.send('enable-menu-item', 'add-database');
 
 module.exports = {
   
-  // Set the handdlers to attach
+  // Register all handlers for listen events
   init() {
     this.enableMenuItem();
+    this.disableMenuItem();
   },
 
-  enableMenuItem() {
+  enableMenuItem () {
     ipcMain.on('enable-menu-item', (event, param) => {
       MenuService.enableItem(param);
+    });
+  },
+
+  disableMenuItem () {
+    ipcMain.on('disable-menu-item', (event, param) => {
+      MenuService.disableItem(param);
     });
   }
 

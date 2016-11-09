@@ -42,7 +42,6 @@
 </template>
 
 <script>
-  const ipcRenderer = require('electron').ipcRenderer;
   const DB = require('../../services/DbService');
   
   export default {
@@ -56,7 +55,7 @@
     },
     mounted() {
       // Listen when the os menu is clicked
-      ipcRenderer.on('add-database', (arg) => {
+      this.$electron.ipcRenderer.on('add-database', (arg) => {
         this.isActive = true;
       });
     },

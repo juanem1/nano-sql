@@ -40,7 +40,6 @@
 
 <script>
 const DB = require('../services/DbService');
-const ipcRenderer = require('electron').ipcRenderer;
 
 export default {
   name: 'connect',
@@ -56,13 +55,22 @@ export default {
       }
     }
   },
-
+  mounted() {
+    // Listen when the os menu is clicked
+    this.$electron.ipcRenderer.on('disconnect', (arg) => {
+      DB.disconnect();
+      this.$router.push('/');
+      this.$electron.ipcRenderer.send('disable-menu-item', 'add-database');
+      this.$electron.ipcRenderer.send('disable-menu-item', 'disconnect');
+    });
+  },
   methods: {
     connectOnSubmit () {
       this.btnIsLoading = true;
       DB.connect(this.form).then(() => {
         this.$router.push('/tables');
-        ipcRenderer.send('enable-menu-item', 'add-database');
+        this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
+        this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
       }).catch((error) => {
         this.notification = true;
       }).then(() => {

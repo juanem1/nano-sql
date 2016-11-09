@@ -3560,6 +3560,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-electron:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vue-electron/-/vue-electron-1.0.4.tgz#fe4e70e0b6a9e7d58823f42692eb9a2302856ce1"
+
 vue-hot-reload-api@^2.0.1:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.0.6.tgz#817d4bfb30f55428aa1012d029499e07f3147d21"

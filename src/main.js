@@ -2,6 +2,8 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueElectron from 'vue-electron';
+
 import Connect from './components/Connect.vue';
 import Layout from './components/Layout.vue';
 import TableStructure from './components/tables/Structure.vue';
@@ -28,6 +30,8 @@ const routes = [
 ];
 
 Vue.use(VueRouter);
+Vue.use(VueElectron);
+
 const router = new VueRouter({
   routes: routes,
   scrollBehavior (to, from, savedPosition) {
