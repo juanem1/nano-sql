@@ -5,7 +5,7 @@ module.exports = {
   /**
    * This is the path on my machine, feel free to change it or disable it.
    */
-  vuejsExt: '/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.1.2_0',
+  vuejsExt: '/Users/juane/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/2.2.0_0',
   
   /**
    * This is the path on my machine, feel free to change it or disable it.
