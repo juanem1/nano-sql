@@ -33,7 +33,7 @@ module.exports = {
   /** 
    * Handle a new connection
    */
-  connect: function(configObj) {
+  connect (configObj) {
     // TODO: Make validation
     return new Promise((resolve, reject) => {
       this.config = Object.assign(this.config, configObj);
@@ -55,7 +55,7 @@ module.exports = {
   /** 
    * Finish current connection 
    */
-  disconnect: function() {
+  disconnect () {
     //this.connection.end();
   },
 
@@ -66,7 +66,7 @@ module.exports = {
    * @param qs {String} Query string
    * @return Promise
    */
-  getQuery: function(qs) {
+  getQuery (qs) {
     return new Promise((resolve, reject) => {
       this.connection.query(qs, (err, response) => {
         if (err) {
@@ -82,7 +82,7 @@ module.exports = {
    * Get all databases with the current DB connection
    * @return Promise
    */
-  getDatabases: function() {
+  getDatabases () {
     return new Promise((resolve, reject) => {
       this.getQuery('show databases')
         .then((response) => {
@@ -100,7 +100,7 @@ module.exports = {
    * Get all tables from the current DB connected
    * @return Promise
    */
-  getTables: function() {
+  getTables () {
     let dbName = this.selectedDatabase;
     let qs = `SELECT TABLE_NAME as 'name' FROM information_schema.TABLES t WHERE TABLE_SCHEMA = '${dbName}'`;
     return this.getQuery(qs);
@@ -111,7 +111,7 @@ module.exports = {
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableInfo: function(tableName) {
+  getTableInfo (tableName) {
     let dbName = this.selectedDatabase;
     let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
@@ -122,7 +122,7 @@ module.exports = {
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableStructure: function(tableName) {
+  getTableStructure (tableName) {
     let dbName = this.selectedDatabase;
     let qs = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
@@ -134,7 +134,7 @@ module.exports = {
    * @param {Number} page      Page to show (pagination) 
    * @return Promise
    */
-  getTableContent: function(tableName, page) {
+  getTableContent (tableName, page) {
     let dbName = this.selectedDatabase;
     let limit = PS.maxRowsPerPage;
     let ofset = 0;
@@ -150,7 +150,7 @@ module.exports = {
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableIndex: function(tableName) {
+  getTableIndex (tableName) {
     let dbName = this.selectedDatabase;
     let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`;
     return this.getQuery(qs);
@@ -161,7 +161,7 @@ module.exports = {
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTotalRows: function(tableName) {
+  getTotalRows (tableName) {
     let dbName = this.selectedDatabase;
     let qs = `SELECT SUM(TABLE_ROWS) AS rows FROM INFORMATION_SCHEMA.TABLES WHERE `;
     qs += `TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
@@ -175,7 +175,7 @@ module.exports = {
    * @param {String} dbName The name of the new database 
    * @return Promise
    */
-  createDatabase: function(dbName) {
+  createDatabase (dbName) {
     let qs = `CREATE DATABASE ${dbName} CHARACTER SET ${this.defaultEncoding} `;
     qs += `COLLATE ${this.defaultCollation}`;
     return this.getQuery(qs);

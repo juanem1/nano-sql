@@ -9,7 +9,7 @@ module.exports = {
    * @param {Integer} totalRows Total rows in some table 
    * @return Bolean
    */
-  showControls: function(totalRows) {
+  showControls (totalRows) {
     return (totalRows <= this.maxRowsPerPage) ? false : true;
   },
 
@@ -18,7 +18,7 @@ module.exports = {
    * @param {Integer} totalRows Total rows in some table 
    * @return Integer
    */
-  getPages: function(totalRows) {
+  getPages (totalRows) {
     return Math.ceil(totalRows / this.maxRowsPerPage);
   },
 
