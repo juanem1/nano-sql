@@ -43,6 +43,14 @@ let menu = [
         click (item, focusedWindow) {
           focusedWindow.webContents.send('add-database');
         }
+      }, { 
+        type: 'separator' 
+      }, {
+        label: 'Manage Databases',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('manage-databases');
+        }
       }
     ]
   }, {

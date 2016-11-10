@@ -21,7 +21,7 @@ module.exports = {
   init(mainWindow, browserWindow, isDev) {
     if (isDev) {
       mainWindow.webContents.openDevTools();
-      browserWindow.addDevToolsExtension(this.vuejsExt);
+      //browserWindow.addDevToolsExtension(this.vuejsExt);
       browserWindow.addDevToolsExtension(this.devtron);
     }
   }

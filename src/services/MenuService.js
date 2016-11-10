@@ -25,19 +25,7 @@ module.exports = {
    * @param {String} item 
    */
   enableItem (item) {
-    const appMenu = menu.getApplicationMenu();
-    let obj = {};
-    switch(item) {
-      case 'add-database':
-        obj = _.find(appMenu.items, ['label', 'Database']);
-        obj.submenu.items[0].enabled = true;
-        break;
-      case 'disconnect':
-        debugger;
-        obj = _.find(appMenu.items, ['label', 'File']);
-        obj.submenu.items[0].enabled = true;
-        break;
-    }
+    this.toggleState(item, true);
   },
 
   /**
@@ -45,17 +33,30 @@ module.exports = {
    * @param {String} item 
    */
   disableItem (item) {
+    this.toggleState(item, false);
+  },
+
+  /**
+   * Private method
+   * Toggle state for some menu item
+   * @param {String} item 
+   */
+  toggleState (item, state) {
     const appMenu = menu.getApplicationMenu();
     let obj = {};
     switch(item) {
       case 'add-database':
         obj = _.find(appMenu.items, ['label', 'Database']);
-        obj.submenu.items[0].enabled = false;
+        obj.submenu.items[0].enabled = state;
+        break;
+      case 'manage-databases':
+        obj = _.find(appMenu.items, ['label', 'Database']);
+        obj.submenu.items[2].enabled = state;
         break;
       case 'disconnect':
         debugger;
         obj = _.find(appMenu.items, ['label', 'File']);
-        obj.submenu.items[0].enabled = false;
+        obj.submenu.items[0].enabled = state;
         break;
     }
   }

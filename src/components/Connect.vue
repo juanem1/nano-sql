@@ -62,6 +62,7 @@ export default {
       this.$router.push('/');
       this.$electron.ipcRenderer.send('disable-menu-item', 'add-database');
       this.$electron.ipcRenderer.send('disable-menu-item', 'disconnect');
+      this.$electron.ipcRenderer.send('disable-menu-item', 'manage-databases');
     });
   },
   methods: {
@@ -71,6 +72,7 @@ export default {
         this.$router.push('/tables');
         this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
         this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
+        this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');
       }).catch((error) => {
         this.notification = true;
       }).then(() => {
