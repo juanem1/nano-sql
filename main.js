@@ -1,7 +1,7 @@
 'use strict';
 
 const electron = require('electron');
-const App = require('./src/bootstrap/app');
+const App = require('./bootstrap/app');
 
 const electronApp = electron.app;
 

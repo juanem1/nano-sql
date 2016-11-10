@@ -1,8 +1,10 @@
 'use strict';
 
-const ipcService = require('../services/IpcService');
-const menuService = require('../services/MenuService');
-const DevToolsService = require('../services/DevToolsService');
+const NativeMenu = require('electron').Menu;
+const DevTools = require('./dev-tools');
+const IpcMain = require('./ipcMain');
+const mainMenu = require('./menu');
+const devMenu = require('./dev-menu');
 
 module.exports = {
   
@@ -23,25 +25,33 @@ module.exports = {
 
   createWindow() {
     this.mainWindow = new this.browserWindow(this.mainWindowConfig);
-    this.mainWindow.loadURL(`file://${__dirname}/../index.html`);
+    this.mainWindow.loadURL(`file://${__dirname}/../src/index.html`);
     this.mainWindow.maximize();
-
-    menuService.make(this.isDev);
-
     this.mainWindow.on('closed', function () {
       this.mainWindow = null;
     });
   },
 
-  // Bootstrap application
-  init() {
-    this.createWindow();
-    ipcService.init();
-    // If I'm in dev mode open console and load vue extension
-    DevToolsService.init(this.mainWindow, this.browserWindow, this.isDev);
+  createMenu() {
+    if (this.isDev) {
+      mainMenu.push(devMenu);
+    }
+    NativeMenu.setApplicationMenu(
+      NativeMenu.buildFromTemplate(mainMenu)
+    );
   },
 
-  // Handle Electron Events
+  // Bootstrap application
+  init() {
+    // Cerate main window
+    this.createWindow();
+    // Crate native main menu
+    this.createMenu();
+    // Register event handler for native menu
+    IpcMain.register();
+    // If I'm in dev mode open console and load vue extension
+    DevTools.init(this.mainWindow, this.browserWindow, this.isDev);
+  },
 
   onReady() {
     this.init();

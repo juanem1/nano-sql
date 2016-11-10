@@ -22,7 +22,7 @@ module.exports = {
     if (isDev) {
       mainWindow.webContents.openDevTools();
       //browserWindow.addDevToolsExtension(this.vuejsExt);
-      browserWindow.addDevToolsExtension(this.devtron);
+      //browserWindow.addDevToolsExtension(this.devtron);
     }
   }
 
