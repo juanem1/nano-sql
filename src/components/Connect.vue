@@ -39,48 +39,37 @@
 </template>
 
 <script>
-const DB = require('../services/DbService');
-
-export default {
-  name: 'connect',
-  data () {
-    return {
-      btnIsLoading: false,
-      notification: false,
-      form: {
-        host: '192.168.10.10',
-        user: 'homestead',
-        password: 'secret',
-        port: 3306
+  const DB = require('../services/DbService');
+  export default {
+    name: 'connect',
+    data () {
+      return {
+        btnIsLoading: false,
+        notification: false,
+        form: {
+          host: '192.168.10.10',
+          user: 'homestead',
+          password: 'secret',
+          port: 3306
+        }
+      }
+    },
+    methods: {
+      connectOnSubmit () {
+        this.btnIsLoading = true;
+        DB.connect(this.form).then(() => {
+          this.$router.push('/tables');
+          this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
+          this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
+          this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');
+        }).catch((error) => {
+          this.notification = true;
+        }).then(() => {
+          this.btnIsLoading = false;
+        });
       }
     }
-  },
-  mounted() {
-    // Listen when the os menu is clicked
-    this.$electron.ipcRenderer.on('disconnect', (arg) => {
-      DB.disconnect();
-      this.$router.push('/');
-      this.$electron.ipcRenderer.send('disable-menu-item', 'add-database');
-      this.$electron.ipcRenderer.send('disable-menu-item', 'disconnect');
-      this.$electron.ipcRenderer.send('disable-menu-item', 'manage-databases');
-    });
-  },
-  methods: {
-    connectOnSubmit () {
-      this.btnIsLoading = true;
-      DB.connect(this.form).then(() => {
-        this.$router.push('/tables');
-        this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
-        this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
-        this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');
-      }).catch((error) => {
-        this.notification = true;
-      }).then(() => {
-        this.btnIsLoading = false;
-      });
-    }
   }
-}
 </script>
 
 <style scoped>
