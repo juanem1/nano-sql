@@ -181,6 +181,17 @@ module.exports = {
     let qs = `CREATE DATABASE ${dbName} CHARACTER SET ${this.defaultEncoding} `;
     qs += `COLLATE ${this.defaultCollation}`;
     return this.getQuery(qs);
+  },
+
+  // ---- DELETION QUERYS ------------
+
+  /** 
+   * Delete one database
+   * @param {String} dbName The name of the database 
+   * @return Promise
+   */
+  deleteDatabase (dbName) {
+    return this.getQuery(`DROP DATABASE ${dbName}`);
   }
 
 };

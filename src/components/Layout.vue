@@ -17,6 +17,10 @@
         this.$electron.ipcRenderer.send('disable-menu-item', 'disconnect');
         this.$electron.ipcRenderer.send('disable-menu-item', 'manage-databases');
       });
+      // Listen when the os menu is clicked
+      this.$electron.ipcRenderer.on('manage-databases', (arg) => {
+        this.$router.push('/databases');
+      });
     }
   }
 </script>

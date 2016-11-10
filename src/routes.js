@@ -2,7 +2,7 @@
 
 import Layout from './components/Layout.vue';
 import Connect from './components/Connect.vue';
-import TablesLayout from './components/tables/Layout.vue';
+import TablesLayout from './components/tables/TablesLayout.vue';
 import TableStructure from './components/tables/Structure.vue';
 import TableContent from './components/tables/Content.vue';
 import TableInfo from './components/tables/Info.vue';

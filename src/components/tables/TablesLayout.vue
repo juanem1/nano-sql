@@ -48,16 +48,21 @@
     methods: {
       // Event trigger from child
       databaseChange(selectedDb) {
-        this.selectedDatabase = selectedDb; 
+        this.selectedDatabase = selectedDb;
+        DB.selectedDatabase = selectedDb;
         this.loadTables();
       },
       // Event trigger from child
       databaseAdded(dbName) {
         this.databases.push(dbName);
         this.selectedDatabase = dbName;
+        DB.selectedDatabase = dbName;
         this.loadTables();
       },
       loadDatabases () {
+        if (DB.selectedDatabase !== '') {
+          this.selectedDatabase = DB.selectedDatabase;
+        }
         DB.getDatabases().then((resp) => {
           this.databases = resp;
         });
@@ -81,7 +86,7 @@
         this.loadTables();
       }
     },
-    created() {
+    created () {
       this.loadAll();
     }
   };
