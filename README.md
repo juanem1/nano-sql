@@ -1,15 +1,29 @@
-## Build Setup
+# Nano SQL
+If you want to check this app
+
+## Requirements
+* yarn (or npm)
+
+## Development
 
 ``` bash
-# install dependencies
-yarn install
+# Clone repo
+git clone https://github.com/juanem1/nano-sql.git
 
-# serve only frontend with hot reload at localhost:8080
-npm run dev
+cd nano-sql
 
-# build frontend for production with minification
-npm run build
+# install all dependencies
+yarn
 
-# build app and open electron new window
+# build app and open in a new window
 npm run start
 ```
+
+## Isues
+
+https://github.com/juanem1/nano-sql/issues
+
+## Docs (in progress)
+
+https://juanem1.gitbooks.io/nano-sql/content/
+
