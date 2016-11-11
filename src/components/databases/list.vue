@@ -9,20 +9,12 @@
               <tr>
                 <th>Name</th>
                 <th></th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(database, index) in databases">
                 <td>
                   <a v-on:click="goToDatabase(database)">{{database}}</a>
-                </td>
-                <td class="is-icon">
-                  <a class="button is-small is-info is-outlined is-disabled">
-                    <span class="icon is-small">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </span>
-                  </a>
                 </td>
                 <td class="is-icon">
                   <a v-on:click="deleteDatabase(database, index)" class="button is-small is-danger is-outlined">
@@ -36,12 +28,13 @@
           </table>
         </div>
       </div>
-   </div>
+    </div>
   </div>
 </template>
 
 <script>
   const DB = require('../../services/DbService');
+  
   export default {
     name: 'databaseList',
     data () {
@@ -55,7 +48,15 @@
         this.$router.push('/tables');
       },
       deleteDatabase (dbName, index) {
-        if (confirm(`Are you sure to delete "${dbName}" ?`)) {
+        let msg = {
+          type:'info', 
+          title:'Delete Database', 
+          buttons:['OK', 'Cancel'], 
+          message: `Are you sure to delete "${dbName}" ?`, 
+          detail: 'This action cannot be undone'
+        };
+        let selection = this.$electron.remote.dialog.showMessageBox(msg);
+        if (selection === 0) {
           DB.deleteDatabase(dbName).then((response) => {
             this.databases.splice(index, 1);
           });
