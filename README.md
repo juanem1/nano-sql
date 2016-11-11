@@ -19,7 +19,7 @@ yarn
 npm run start
 ```
 
-## Isues
+## Issues
 
 https://github.com/juanem1/nano-sql/issues
 
