@@ -2,9 +2,12 @@
 If you want to check this app
 
 ## Requirements
+* git
 * yarn (or npm)
 
 ## Development
+- master branch = stable (sort off)
+- develop branch = development (unstable)
 
 ``` bash
 # Clone repo
@@ -13,7 +16,11 @@ git clone https://github.com/juanem1/nano-sql.git
 cd nano-sql
 
 # install all dependencies
+# use yarn for faster install
 yarn
+
+# or traditional NPM
+npm install
 
 # build app and open in a new window
 npm run start
