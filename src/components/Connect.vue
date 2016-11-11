@@ -39,19 +39,17 @@
 </template>
 
 <script>
+
   const DB = require('../services/DbService');
+  const SS = require('../services/StorageService');
+  
   export default {
     name: 'connect',
     data () {
       return {
         btnIsLoading: false,
         notification: false,
-        form: {
-          host: '192.168.10.10',
-          user: 'homestead',
-          password: 'secret',
-          port: 3306
-        }
+        form: {}
       }
     },
     methods: {
@@ -62,6 +60,9 @@
           if (this.form.database) {
             this.$store.commit('setSelectedDb', this.form.database);
           }
+          // Save connection config in the store
+          SS.setItem('connectionConfig', JSON.stringify(this.form));
+          // Enable menu items
           this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
           this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
           this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');
@@ -70,6 +71,12 @@
         }).then(() => {
           this.btnIsLoading = false;
         });
+      }
+    },
+    created () {
+      let conf = SS.getItem('connectionConfig');
+      if (conf !== null) {
+        this.form = JSON.parse(conf);
       }
     }
   }
