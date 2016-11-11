@@ -37,14 +37,14 @@
   
   export default {
     name: 'databaseList',
-    data () {
-      return {
-        databases: []
+    computed: {
+      databases () {
+        return this.$store.state.databases;
       }
     },
     methods: {
       goToDatabase (dbName) {
-        DB.selectedDatabase = dbName;
+        this.$store.commit('setSelectedDb', dbName);
         this.$router.push('/tables');
       },
       deleteDatabase (dbName, index) {
@@ -58,15 +58,10 @@
         let selection = this.$electron.remote.dialog.showMessageBox(msg);
         if (selection === 0) {
           DB.deleteDatabase(dbName).then((response) => {
-            this.databases.splice(index, 1);
+            this.$store.commit('removeDatabase', index);
           });
         }
       }
-    },
-    created () {
-      DB.getDatabases().then((response) => {
-        this.databases = response;
-      });
     }
   }
 </script>

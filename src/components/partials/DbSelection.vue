@@ -11,18 +11,17 @@
 <script>
   export default {
     name: 'tableNav',
-    props: [
-      'selectedDb',
-      'databases'
-    ],
     computed: {
       selected () {
-        return this.selectedDb;
+        return this.$store.state.selectedDatabase;
+      },
+      databases () {
+        return this.$store.state.databases;
       }
     },
     methods: {
       changeDbSelection(event) {
-        this.$emit('databaseChange', event.target.value);
+        this.$store.commit('setSelectedDb', event.target.value);
       }
     }
   }

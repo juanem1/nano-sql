@@ -68,7 +68,10 @@
     },
     methods: {
       getInfo () {
-        DB.getTableInfo(this.$route.params.name).then((resp) => {
+        DB.getTableInfo(
+          this.$store.state.selectedDatabase, 
+          this.$route.params.name
+        ).then((resp) => {
           this.info = resp[0];
         });
       }

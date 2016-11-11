@@ -1,13 +1,20 @@
 <template>
   <div class="main-layout">
     <router-view></router-view> 
+    <AddDbModal><AddDbModal>
   </div>
 </template>
 
 <script>
+  import AddDbModal from './partials/AddDbModal.vue';
+  
   const DB = require('../services/DbService');
+  
   export default {
     name: 'mainLayout',
+    components: {
+      AddDbModal
+    },
     mounted() {
       // Listen when the os menu is clicked
       this.$electron.ipcRenderer.on('disconnect', (arg) => {

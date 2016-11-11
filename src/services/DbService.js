@@ -8,15 +8,6 @@ module.exports = {
   // keep the stablished conneciton
   connection: null,
 
-  /**
-   * Keep all databases in a single array
-   * This array is populated in the first load
-   */ 
-  databases: [],
-
-  // Keep the name of the current selected database
-  selectedDatabase: '',
-
   // keep the raw configuration for the connection
   config: {
     host     : '',
@@ -42,10 +33,6 @@ module.exports = {
         if (error) {
           reject(error.code);
         } else {
-          // If there is a database in the connection, set it as selected
-          if (this.config.database) {
-            this.selectedDatabase = this.config.database; 
-          }
           resolve();
         }
       });
@@ -100,44 +87,44 @@ module.exports = {
 
   /** 
    * Get all tables from the current DB connected
+   * @param {String} dbName Database name
    * @return Promise
    */
-  getTables () {
-    let dbName = this.selectedDatabase;
+  getTables (dbName) {
     let qs = `SELECT TABLE_NAME as 'name' FROM information_schema.TABLES t WHERE TABLE_SCHEMA = '${dbName}'`;
     return this.getQuery(qs);
   },
 
   /** 
    * Get info from some table
+   * @param {String} dbName Database name
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableInfo (tableName) {
-    let dbName = this.selectedDatabase;
+  getTableInfo (dbName, tableName) {
     let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   },
 
   /** 
    * Get structure from some table
+   * @param {String} dbName Database name
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableStructure (tableName) {
-    let dbName = this.selectedDatabase;
+  getTableStructure (dbName, tableName) {
     let qs = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);
   },
 
   /** 
    * Get content (data) from some table
+   * @param {String} dbName    Database name
    * @param {String} tableName Name of the table 
    * @param {Number} page      Page to show (pagination) 
    * @return Promise
    */
-  getTableContent (tableName, page) {
-    let dbName = this.selectedDatabase;
+  getTableContent (dbName, tableName, page) {
     let limit = PS.maxRowsPerPage;
     let ofset = 0;
     if (page > 1) {
@@ -149,22 +136,22 @@ module.exports = {
 
   /** 
    * Get indexes from some table
+   * @param {String} dbName Database name
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTableIndex (tableName) {
-    let dbName = this.selectedDatabase;
+  getTableIndex (dbName, tableName) {
     let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`;
     return this.getQuery(qs);
   },
 
   /** 
    * Get total rows of one table
+   * @param {String} dbName Database name
    * @param {String} tableName Name of the table 
    * @return Promise
    */
-  getTotalRows (tableName) {
-    let dbName = this.selectedDatabase;
+  getTotalRows (dbName, tableName) {
     let qs = `SELECT SUM(TABLE_ROWS) AS rows FROM INFORMATION_SCHEMA.TABLES WHERE `;
     qs += `TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`;
     return this.getQuery(qs);

@@ -47,6 +47,8 @@
     name: 'tableContent',
     data () {
       return {
+        selectedDatabase: this.$store.state.selectedDatabase,
+        selectedTable: this.$route.params.name,
         columns: [],
         content: [],
         totalRows: 0,
@@ -83,7 +85,11 @@
     },
     methods: {
       getContent() {
-        DB.getTableContent(this.$route.params.name, this.currentPage).then((resp) => {
+        DB.getTableContent(
+          this.selectedDatabase, 
+          this.selectedTable, 
+          this.currentPage
+        ).then((resp) => {
           if (resp.length) {
             this.columns = Object.keys(resp[0]);
             this.content = resp;
@@ -92,7 +98,10 @@
         });
       },
       getTotalRows() {
-        DB.getTotalRows(this.$route.params.name).then((r) => {
+        DB.getTotalRows(
+          this.selectedDatabase, 
+          this.selectedTable
+        ).then((r) => {
           this.totalRows = r[0].rows;
           this.showPaginationControls = PS.showControls(r[0].rows);
           this.paginationPages = PS.getPages(r[0].rows);

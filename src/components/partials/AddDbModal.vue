@@ -62,8 +62,8 @@
     methods: {
       addDatabase() {
         // TODO: Add validations
-        DB.createDatabase(this.name).then((resp) => {
-          this.$emit('databaseAdded', this.name);
+        DB.createDatabase(this.name).then(() => {
+          this.$store.commit('addDatabase', this.name);
           this.closeModal();
         }).catch((error) => {
           this.error = true;

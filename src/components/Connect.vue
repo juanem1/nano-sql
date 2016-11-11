@@ -59,6 +59,9 @@
         this.btnIsLoading = true;
         DB.connect(this.form).then(() => {
           this.$router.push('/tables');
+          if (this.form.database) {
+            this.$store.commit('setSelectedDb', this.form.database);
+          }
           this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
           this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
           this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');

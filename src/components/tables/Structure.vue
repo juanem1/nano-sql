@@ -49,7 +49,8 @@
     },
     methods: {
       getStructure (tableName) {
-        DB.getTableStructure(tableName).then((resp) => {
+        let db = this.$store.state.selectedDatabase;
+        DB.getTableStructure(db, tableName).then((resp) => {
           this.structure = resp;
         });
       },

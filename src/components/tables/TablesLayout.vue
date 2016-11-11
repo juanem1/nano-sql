@@ -3,12 +3,7 @@
     <div class="columns is-gapless">
       <TableNav :table-name="$route.params.name"></TableNav>
       <div class="left-column">
-        <DbSelection
-          v-on:databaseChange="databaseChange"
-          :selected-db="selectedDatabase"
-          :databases="databases"
-          >
-        </DbSelection>
+        <DbSelection></DbSelection>
         <TableList :tables="tables" v-show="selectedDatabase"></TableList>
         <NoDbSelected v-show="!selectedDatabase"></NoDbSelected>
       </div>
@@ -16,7 +11,6 @@
         <router-view></router-view>
       </div>
     </div>
-    <AddDbModal v-on:databaseAdded="databaseAdded"><AddDbModal>
   </div>
 </template>
 
@@ -25,7 +19,6 @@
   import DbSelection from '../partials/DbSelection.vue';
   import TableList from '../partials/TableList.vue';
   import NoDbSelected from '../partials/NoDbSelected.vue';
-  import AddDbModal from '../partials/AddDbModal.vue';
 
   const DB = require('../../services/DbService');
 
@@ -33,45 +26,38 @@
     name: 'tables',
     data () {
       return {
-        selectedDatabase: '',
-        tables: [],
-        databases: [] 
+        tables: []
       }
     },
     components: {
       TableNav,
       DbSelection,
       TableList,
-      NoDbSelected,
-      AddDbModal
+      NoDbSelected
+    },
+    computed: {
+      selectedDatabase () {
+        return this.$store.state.selectedDatabase;
+      }
+    },
+    watch: {
+      'selectedDatabase' () {
+        this.loadTables();
+      }
     },
     methods: {
-      // Event trigger from child
-      databaseChange(selectedDb) {
-        this.selectedDatabase = selectedDb;
-        DB.selectedDatabase = selectedDb;
-        this.loadTables();
-      },
-      // Event trigger from child
-      databaseAdded(dbName) {
-        this.databases.push(dbName);
-        this.selectedDatabase = dbName;
-        DB.selectedDatabase = dbName;
-        this.loadTables();
-      },
       loadDatabases () {
-        if (DB.selectedDatabase !== '') {
-          this.selectedDatabase = DB.selectedDatabase;
+        if ( ! this.$store.state.databases.length) {
+          DB.getDatabases().then((resp) => {
+            this.$store.commit('setDatabases', resp);
+          });
         }
-        DB.getDatabases().then((resp) => {
-          this.databases = resp;
-        });
       },
       loadTables () {
-        if (this.selectedDatabase === '') {
+        if (this.$store.state.selectedDatabase === '') {
           this.tables = [];
         } else {
-          DB.getTables().then((resp) => {
+          DB.getTables(this.$store.state.selectedDatabase).then((resp) => {
             this.tables = resp;
             if (resp.length > 0) {
               this.$router.push(`/tables/${resp[0].name}/structure`);
