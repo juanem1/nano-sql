@@ -46,6 +46,10 @@ module.exports = {
       'mysql'
     ])
   ],
+  node: {
+    __filename: true,
+    __dirname: true
+  },
   devtool: '#eval-source-map'
 }
 

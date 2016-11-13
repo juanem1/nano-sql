@@ -2241,6 +2241,10 @@ mime@^1.3.4, mime@1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
+mini-toastr:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/mini-toastr/-/mini-toastr-0.3.10.tgz#6f624025a0826cb43a741f6c659e1c818c724fb5"
+
 minimalistic-assert@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.0.tgz#702be2dda6b37f4836bcb3f5db56641b64a1d3d3"

@@ -9,7 +9,8 @@
   import AddDbModal from './partials/AddDbModal.vue';
   
   const DB = require('../services/DbService');
-  
+  const NS = require('../services/NotificationService');
+
   export default {
     name: 'mainLayout',
     components: {
@@ -23,6 +24,7 @@
         this.$electron.ipcRenderer.send('disable-menu-item', 'add-database');
         this.$electron.ipcRenderer.send('disable-menu-item', 'disconnect');
         this.$electron.ipcRenderer.send('disable-menu-item', 'manage-databases');
+        NS.success('Disconnect', 'Disconnected from service');
       });
       // Listen when the os menu is clicked
       this.$electron.ipcRenderer.on('manage-databases', (arg) => {
