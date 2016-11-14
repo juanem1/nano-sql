@@ -88,7 +88,7 @@
     height: 100%;
     left: 0;
     overflow: auto;
-    padding: 10px;
+    padding: 0;
     position: fixed;
     top: 0;
     width: 210px;
