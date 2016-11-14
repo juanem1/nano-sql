@@ -4,13 +4,6 @@ const shell = require('electron').shell;
 
 let menu = [
   {
-    label: 'Main',
-    submenu: [
-      { role: 'about' },
-      { type: 'separator' },
-      { role: 'quit' }
-    ]
-  }, {
     label: 'File',
     submenu: [
       { 
@@ -50,6 +43,59 @@ let menu = [
         enabled: false,
         click (item, focusedWindow) {
           focusedWindow.webContents.send('manage-databases');
+        }
+      }
+    ]
+  }, {
+    label: 'Tables',
+    submenu: [
+      {
+        label: 'Show Create Table syntax',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('show-create-table');
+        }
+      }, { 
+        type: 'separator' 
+      }, {
+        label: 'Add Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('add-table');
+        }
+      }, { 
+        type: 'separator' 
+      }, {
+        label: 'Check Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('check-table');
+        }
+      }, {
+        label: 'Repair Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('repair-table');
+        }
+      }, { 
+        type: 'separator' 
+      }, {
+        label: 'Analize Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('analize-table');
+        }
+      }, {
+        label: 'Optimize Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('optimize-table');
+        }
+      }, {
+        label: 'Checksum Table',
+        enabled: false,
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('checksum-table');
         }
       }
     ]
