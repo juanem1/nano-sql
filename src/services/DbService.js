@@ -157,6 +157,17 @@ module.exports = {
     return this.getQuery(qs);
   },
 
+  /** 
+   * Get create statement for a table
+   * @param {String} dbName Database name
+   * @param {String} tableName Name of the table 
+   * @return Promise
+   */
+  getCreateStatement (dbName, tableName) {
+    let qs = `SHOW CREATE TABLE ${dbName}.${tableName}`;
+    return this.getQuery(qs);
+  },
+
   // ---- CREATION QUERYS ------------ 
 
   /** 

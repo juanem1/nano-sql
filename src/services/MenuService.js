@@ -43,6 +43,11 @@ module.exports = {
         obj = _.find(appMenu.items, ['label', 'File']);
         obj.submenu.items[0].enabled = state;
         break;
+      case 'show-create-table':
+        debugger;
+        obj = _.find(appMenu.items, ['label', 'Tables']);
+        obj.submenu.items[0].enabled = state;
+        break;
     }
   }
 

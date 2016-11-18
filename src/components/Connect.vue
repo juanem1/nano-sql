@@ -66,6 +66,7 @@
           this.$electron.ipcRenderer.send('enable-menu-item', 'add-database');
           this.$electron.ipcRenderer.send('enable-menu-item', 'disconnect');
           this.$electron.ipcRenderer.send('enable-menu-item', 'manage-databases');
+          this.$electron.ipcRenderer.send('enable-menu-item', 'show-create-table');
         }).catch((error) => {
           this.notification = true;
         }).then(() => {
