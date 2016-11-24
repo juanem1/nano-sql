@@ -1,11 +1,9 @@
 'use strict';
 
-import miniToastr from 'mini-toastr';
-const toastr = miniToastr.init();
+const success = require('../img/success.png');
+const error   = require('../img/error.png');
 
 module.exports = {
-
-  defaultDuration: 5000,
 
   /**
    * Show success notification
@@ -13,7 +11,10 @@ module.exports = {
    * @param {String} message
    */
   success(title, message) {
-    toastr.success(message, title, this.defaultDuration);
+    new Notification(title, {
+      body: message,
+      icon: '../' + success
+    });
   },
 
   /**
@@ -22,7 +23,10 @@ module.exports = {
    * @param {String} message
    */
   error(title, message) {
-    toastr.error(message, title, this.defaultDuration);
+    new Notification(title, {
+      body: message,
+      icon: '../' + error
+    });
   }
   
 };
