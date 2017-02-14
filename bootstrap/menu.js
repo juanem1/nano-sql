@@ -1,16 +1,16 @@
-'use strict';
+'use strict'
 
-const shell = require('electron').shell;
+const shell = require('electron').shell
 
 let menu = [
   {
     label: 'File',
     submenu: [
-      { 
+      {
         label: 'Disconnect',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('disconnect');
+          focusedWindow.webContents.send('disconnect')
         }
       }
     ]
@@ -34,15 +34,15 @@ let menu = [
         label: 'Add Database',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('add-database');
+          focusedWindow.webContents.send('add-database')
         }
-      }, { 
-        type: 'separator' 
+      }, {
+        type: 'separator'
       }, {
         label: 'Manage Databases',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('manage-databases');
+          focusedWindow.webContents.send('manage-databases')
         }
       }
     ]
@@ -53,49 +53,49 @@ let menu = [
         label: 'Show Create Table syntax',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('show-create-table');
+          focusedWindow.webContents.send('show-create-table')
         }
-      }, { 
-        type: 'separator' 
+      }, {
+        type: 'separator'
       }, {
         label: 'Add Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('add-table');
+          focusedWindow.webContents.send('add-table')
         }
-      }, { 
-        type: 'separator' 
+      }, {
+        type: 'separator'
       }, {
         label: 'Check Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('check-table');
+          focusedWindow.webContents.send('check-table')
         }
       }, {
         label: 'Repair Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('repair-table');
+          focusedWindow.webContents.send('repair-table')
         }
-      }, { 
-        type: 'separator' 
+      }, {
+        type: 'separator'
       }, {
         label: 'Analize Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('analize-table');
+          focusedWindow.webContents.send('analize-table')
         }
       }, {
         label: 'Optimize Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('optimize-table');
+          focusedWindow.webContents.send('optimize-table')
         }
       }, {
         label: 'Checksum Table',
         enabled: false,
         click (item, focusedWindow) {
-          focusedWindow.webContents.send('checksum-table');
+          focusedWindow.webContents.send('checksum-table')
         }
       }
     ]
@@ -104,34 +104,34 @@ let menu = [
     submenu: [
       {
         label: 'Report an Issue...',
-        click () { 
-          shell.openExternal('https://github.com/juanem1/nano-sql/issues') 
+        click () {
+          shell.openExternal('https://github.com/juanem1/nano-sql/issues')
         }
       }, {
         label: 'Documentation',
-        click () { 
-          shell.openExternal('https://juanem1.gitbooks.io/nano-sql/content') 
+        click () {
+          shell.openExternal('https://juanem1.gitbooks.io/nano-sql/content')
         }
       }, {
         label: 'Github',
-        click () { 
-          shell.openExternal('https://github.com/juanem1/nano-sql') 
+        click () {
+          shell.openExternal('https://github.com/juanem1/nano-sql')
         }
       }
     ]
   }
-];
+]
 
 if (process.platform === 'darwin') {
   menu.unshift({
     label: 'Nano SQL',
     submenu: [
-      { role: 'about' }, 
-      { type: 'separator' }, 
-      { 
+      { role: 'about' },
+      { type: 'separator' },
+      {
         role: 'services',
         submenu: []
-      }, 
+      },
       { type: 'separator' },
       { role: 'hide' },
       { role: 'hideothers' },
@@ -139,7 +139,7 @@ if (process.platform === 'darwin') {
       { type: 'separator' },
       { role: 'quit' }
     ]
-  });
+  })
 }
 
-module.exports = menu;
+module.exports = menu

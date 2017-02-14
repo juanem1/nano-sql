@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import Vue from 'vue';
+import Vue from 'vue'
 
 Vue.filter('formatNumber', function (value) {
-  return Intl.NumberFormat().format(value);
-});
+  return Intl.NumberFormat().format(value)
+})

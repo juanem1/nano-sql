@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const success = require('../img/success.png');
-const error   = require('../img/error.png');
+const success = require('../img/success.png')
+const error = require('../img/error.png')
 
 module.exports = {
 
@@ -10,11 +10,11 @@ module.exports = {
    * @param {Srting} title
    * @param {String} message
    */
-  success(title, message) {
+  success (title, message) {
     new Notification(title, {
       body: message,
       icon: '../' + success
-    });
+    })
   },
 
   /**
@@ -22,11 +22,11 @@ module.exports = {
    * @param {Srting} title
    * @param {String} message
    */
-  error(title, message) {
+  error (title, message) {
     new Notification(title, {
       body: message,
       icon: '../' + error
-    });
+    })
   }
-  
-};
+
+}

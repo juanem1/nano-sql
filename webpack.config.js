@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -12,19 +12,20 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue',
+        loader: 'vue-loader',
         options: {
           // vue-loader options go here
         }
-      },
-      {
+      }, {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
-      },
-      {
+      }, { 
+        test: /\.css$/, 
+        loader: 'style-loader!css-loader'
+      }, {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file',
+        loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
@@ -43,7 +44,9 @@ module.exports = {
   plugins: [
     new webpack.ExternalsPlugin('commonjs', [
       'electron',
-      'mysql'
+      'mysql',
+      'mssql',
+      'lodash'
     ])
   ],
   node: {
