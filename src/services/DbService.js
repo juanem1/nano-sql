@@ -88,8 +88,11 @@ module.exports = {
    * @return Promise
    */
   getTableInfo (dbName, tableName) {
-    let qs = `SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.getTableInfo(dbName, tableName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.getTableInfo(dbName, tableName)
+    }
   },
 
   /**
@@ -99,8 +102,11 @@ module.exports = {
    * @return Promise
    */
   getTableStructure (dbName, tableName) {
-    let qs = `SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.getTableStructure(dbName, tableName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.getTableStructure(dbName, tableName)
+    }
   },
 
   /**
@@ -111,13 +117,11 @@ module.exports = {
    * @return Promise
    */
   getTableContent (dbName, tableName, page) {
-    let limit = PS.maxRowsPerPage
-    let ofset = 0
-    if (page > 1) {
-      ofset = limit * (page - 1)
+    if (this.config.type === 'mysql') {
+      return mysql.getTableContent(dbName, tableName, page)
+    } else if (this.config.type === 'mssql') {
+      return mssql.getTableContent(dbName, tableName, page)
     }
-    let qs = `SELECT * FROM ${dbName}.${tableName} LIMIT ${ofset}, ${limit}`
-    return this.getQuery(qs)
   },
 
   /**
@@ -127,8 +131,11 @@ module.exports = {
    * @return Promise
    */
   getTableIndex (dbName, tableName) {
-    let qs = `SHOW INDEXES FROM ${dbName}.${tableName}`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.getTableIndex(dbName, tableName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.getTableIndex(dbName, tableName)
+    }
   },
 
   /**
@@ -138,9 +145,11 @@ module.exports = {
    * @return Promise
    */
   getTotalRows (dbName, tableName) {
-    let qs = `SELECT SUM(TABLE_ROWS) AS rows FROM INFORMATION_SCHEMA.TABLES WHERE `
-    qs += `TABLE_SCHEMA = '${dbName}' AND TABLE_NAME = '${tableName}'`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.getTotalRows(dbName, tableName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.getTotalRows(dbName, tableName)
+    }
   },
 
   /**
@@ -150,8 +159,11 @@ module.exports = {
    * @return Promise
    */
   getCreateStatement (dbName, tableName) {
-    let qs = `SHOW CREATE TABLE ${dbName}.${tableName}`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.getCreateStatement(dbName, tableName)
+    } else if (this.config.type === 'mssql') {
+      //return mssql.getCreateStatement(dbName, tableName)
+    }
   },
 
   // ---- CREATION QUERYS ------------
@@ -162,9 +174,11 @@ module.exports = {
    * @return Promise
    */
   createDatabase (dbName) {
-    let qs = `CREATE DATABASE ${dbName} CHARACTER SET ${this.defaultEncoding} `
-    qs += `COLLATE ${this.defaultCollation}`
-    return this.getQuery(qs)
+    if (this.config.type === 'mysql') {
+      return mysql.createDatabase(dbName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.createDatabase(dbName)
+    }
   },
 
   // ---- DELETION QUERYS ------------
@@ -175,7 +189,11 @@ module.exports = {
    * @return Promise
    */
   deleteDatabase (dbName) {
-    return this.getQuery(`DROP DATABASE ${dbName}`)
+    if (this.config.type === 'mysql') {
+      return mysql.deleteDatabase(dbName)
+    } else if (this.config.type === 'mssql') {
+      return mssql.deleteDatabase(dbName)
+    }
   }
 
 }

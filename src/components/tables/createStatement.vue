@@ -35,9 +35,11 @@
     },
     updated () {
       let db = this.$store.state.selectedDatabase;
-      DB.getCreateStatement(db, this.tableName).then(response => {
-        this.createStatement = response[0]['Create Table'];
-      });
+      if (DB.config.type === 'mysql') {
+        DB.getCreateStatement(db, this.tableName).then(response => {
+          this.createStatement = response[0]['Create Table'];
+        });
+      }
     },
     methods: {
       closeModal() {
