@@ -1,5 +1,6 @@
 # Nano SQL
 [![Code Climate](https://codeclimate.com/github/juanem1/nano-sql/badges/gpa.svg)](https://codeclimate.com/github/juanem1/nano-sql)
+[![Build Status](https://travis-ci.org/juanem1/nano-sql.svg?branch=master)](https://travis-ci.org/juanem1/nano-sql)
 
 If you want to check this app
 
