@@ -3,6 +3,7 @@
     "ecmaVersion": 8,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
+      "modules": true,
       "jsx": true
     },
     "sourceType": "module"
