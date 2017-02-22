@@ -11,6 +11,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <createStatement :table-name="$route.params.name"></createStatement>
   </div>
 </template>
 
@@ -19,6 +20,7 @@
   import DbSelection from '../partials/DbSelection.vue';
   import TableList from '../partials/TableList.vue';
   import NoDbSelected from '../partials/NoDbSelected.vue';
+  import createStatement from './createStatement.vue';
 
   const DB = require('../../services/DbService');
 
@@ -33,7 +35,8 @@
       TableNav,
       DbSelection,
       TableList,
-      NoDbSelected
+      NoDbSelected,
+      createStatement
     },
     computed: {
       selectedDatabase () {
@@ -88,7 +91,7 @@
     height: 100%;
     left: 0;
     overflow: auto;
-    padding: 10px;
+    padding: 0;
     position: fixed;
     top: 0;
     width: 210px;

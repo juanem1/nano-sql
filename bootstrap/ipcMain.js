@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const ipcMain = require('electron').ipcMain;
-const MenuService = require('../src/services/MenuService');
+const ipcMain = require('electron').ipcMain
+const MenuService = require('../src/services/MenuService')
 
 /*
 In the vue file
@@ -10,22 +10,22 @@ ipcRenderer.send('enable-menu-item', 'add-database');
 */
 
 module.exports = {
-  
-  register() {
-    this.enableMenuItem();
-    this.disableMenuItem();
+
+  register () {
+    this.enableMenuItem()
+    this.disableMenuItem()
   },
 
   enableMenuItem () {
     ipcMain.on('enable-menu-item', (event, param) => {
-      MenuService.enableItem(param);
-    });
+      MenuService.enableItem(param)
+    })
   },
 
   disableMenuItem () {
     ipcMain.on('disable-menu-item', (event, param) => {
-      MenuService.disableItem(param);
-    });
+      MenuService.disableItem(param)
+    })
   }
-  
-};
+
+}

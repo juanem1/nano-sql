@@ -25,6 +25,12 @@
   .menu {
     margin-bottom: 60px;
   }
+  .menu .menu-label {
+    padding: 0 10px;
+  }
+  .menu-list a {
+    border-radius: 0;
+  }
   li {
     white-space: nowrap;
   }

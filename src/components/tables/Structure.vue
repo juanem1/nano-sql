@@ -63,8 +63,10 @@
         }
       },
       getUnsigned(row) {
-        return row.COLUMN_TYPE.slice(-8) === 'unsigned' ?
-          'YES' : 'NO';
+        if (!row.COLUMN_TYPE) {
+          return '';
+        }
+        return row.COLUMN_TYPE.slice(-8) === 'unsigned' ? 'YES' : 'NO';
       }
     },
     created() {

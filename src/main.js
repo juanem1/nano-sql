@@ -1,14 +1,16 @@
-'use strict';
+'use strict'
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import VueRouter from 'vue-router';
-import VueElectron from 'vue-electron';
-import routes from './routes';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+import VueElectron from 'vue-electron'
+import routes from './routes'
 
-Vue.use(Vuex);
-Vue.use(VueRouter);
-Vue.use(VueElectron);
+require('../node_modules/bulma/css/bulma.css')
+
+Vue.use(Vuex)
+Vue.use(VueRouter)
+Vue.use(VueElectron)
 
 const store = new Vuex.Store({
   state: {
@@ -16,30 +18,30 @@ const store = new Vuex.Store({
     databases: []
   },
   mutations: {
-  	setSelectedDb (state, dbName) {
-      state.selectedDatabase = dbName;
+    setSelectedDb (state, dbName) {
+      state.selectedDatabase = dbName
     },
     setDatabases (state, dbList) {
-      dbList.forEach(item => state.databases.push(item));
+      dbList.forEach(item => state.databases.push(item))
     },
     addDatabase (state, newName) {
-      state.databases.push(newName);
-      state.selectedDatabase = newName;
+      state.databases.push(newName)
+      state.selectedDatabase = newName
     },
     removeDatabase (state, index) {
-      state.databases.splice(index, 1);
+      state.databases.splice(index, 1)
     }
   }
-});
+})
 
 const router = new VueRouter({
   routes: routes,
   scrollBehavior (to, from, savedPosition) {
-    return savedPosition ? savedPosition : { x: 0, y: 0 };
+    return savedPosition ? savedPosition : { x: 0, y: 0 }
   }
-});
+})
 
-const app = new Vue({
+new Vue({
   store,
   router
-}).$mount('#app');
+}).$mount('#app')

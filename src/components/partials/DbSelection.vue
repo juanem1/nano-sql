@@ -29,6 +29,6 @@
 
 <style scoped>
   .nav-item {
-    padding: 12px 0;
+    padding: 25px 0 10px;
   }
 </style>

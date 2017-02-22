@@ -34,6 +34,7 @@
 
 <script>
   const DB = require('../../services/DbService');
+  const NS = require('../../services/NotificationService');
   
   export default {
     name: 'databaseList',
@@ -59,6 +60,7 @@
         if (selection === 0) {
           DB.deleteDatabase(dbName).then((response) => {
             this.$store.commit('removeDatabase', index);
+            NS.success('Delete', 'Database was deleted');
           });
         }
       }
